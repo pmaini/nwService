@@ -15,14 +15,6 @@ x_total = 0;
 y_total = 0;
 n_factor = 0;
 
-% if ismember(numAgent+1,agents(agent).agentsInRange)
-%     aInR = agents(agent).agentsInRange(aents(agent).agentsInRange ~= numAgent+1);
-%     if isempty(aInR)
-%         graphshortestpath(agents(agent).view,agents(agent).index,agents(agent)
-%         
-%     end
-% end
-
 % +1 for bConnect
 for i = 1:agents(agent).max_targets%+1
     
