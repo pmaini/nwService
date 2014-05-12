@@ -80,3 +80,4 @@ base.at_bywall = 0;               %read at bottom y-axis wall
 
 base = get_neighbours(base);
 env_graph = update_graph(env_graph, base, 1);
+build_gradientGraph(base);
