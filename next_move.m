@@ -74,15 +74,6 @@ if (agents(agent).will_move == 1)
                     break;
                 end
             end
-            
-            %         %Agents giving connectivity at the new location
-            %         newAgentConn = find(connection);
-            %         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %         %%%%%% Set utility vector
-            %         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %         agents(agent).utility_vector(connAgents) = 0.25;
-            %         agents(agent).utility_vector(newAgentConn) = ones(1,length(newAgentConn));
-            %         connectivity = sum(connection(connection~=0));
         end
         
         if connectivity == 0
