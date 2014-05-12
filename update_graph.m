@@ -13,7 +13,7 @@ function s_graph = update_graph(s_graph,node,flag)
 %edge weight 0: soft obstacle, directional zero cost
 %edge weight 1: normal edge
 
-global numColumns;
+global numColumns d_max gridCells;
 
 index = node.index;
 
@@ -50,16 +50,16 @@ switch flag
                 switch node.dir
                     case 2
                         s_graph(index,index+numColumns) = 0;% s_graph(index,index+numColumns)*10;
-                        s_graph(index+numColumns,index) = 0;% s_graph(index,index+numColumns)*10;
+%                         s_graph(index+numColumns,index) = 0;% s_graph(index,index+numColumns)*10;
                     case 6
                         s_graph(index,index-1) = 0;% s_graph(index,index-1)*10;
-                        s_graph(index-1,index) = 0;% s_graph(index,index-1)*10;
+%                         s_graph(index-1,index) = 0;% s_graph(index,index-1)*10;
                     case 8
                         s_graph(index,index-numColumns) = 0;% s_graph(index,index-numColumns)*10;
-                        s_graph(index-numColumns,index) = 0;% s_graph(index,index-numColumns)*10;
+%                         s_graph(index-numColumns,index) = 0;% s_graph(index,index-numColumns)*10;
                     case 4
                         s_graph(index,index+1) = 0;% s_graph(index,index+1)*10;
-                        s_graph(index+1,index) = 0;% s_graph(index,index+1)*10;
+%                         s_graph(index+1,index) = 0;% s_graph(index,index+1)*10;
                 end
         end
         
@@ -68,32 +68,46 @@ switch flag
             case 'soft'
                 switch node.dir
                     case 2
-                        s_graph(index,index+numColumns) = 1;
-                        s_graph(index+numColumns,index) = 1;
+                        adj_index = index+numColumns;
+%                         s_graph(index,index+numColumns) = 1;
+%                         s_graph(index+numColumns,index) = 1;
                     case 6
-                        s_graph(index,index-1) = 1;
-                        s_graph(index-1,index) = 1;
+                        adj_index = index-1;
+%                         s_graph(index,index-1) = 1;
+%                         s_graph(index-1,index) = 1;
                     case 8
-                        s_graph(index,index-numColumns) = 1;
-                        s_graph(index-numColumns,index) = 1;
+                        adj_index = index-numColumns;
+%                         s_graph(index,index-numColumns) = 1;
+%                         s_graph(index-numColumns,index) = 1;
                     case 4
-                        s_graph(index,index+1) = 1;
-                        s_graph(index+1,index) = 1;
+                        adj_index = index+1;
+%                         s_graph(index,index+1) = 1;
+%                         s_graph(index+1,index) = 1;
                 end
+                if gridCells(index).bNeighL == gridCells(adj_index).bNeighL
+%                    s_graph(adj_index,index) = gridCells(adj_index).bNeighL;
+                   s_graph(index,adj_index) = gridCells(index).bNeighL;
+               elseif gridCells(index).bNeighL == gridCells(adj_index).bNeighL+1
+%                    s_graph(adj_index,index) = gridCells(adj_index).bNeighL+1;
+                   s_graph(index,adj_index) = gridCells(index).bNeighL+1;
+               elseif gridCells(index).bNeighL == gridCells(adj_index).bNeighL-1
+%                    s_graph(adj_index,index) = gridCells(adj_index).bNeighL-1;
+                   s_graph(index,adj_index) = gridCells(index).bNeighL-1;
+               end
             case 'collAvoid'
                 switch node.dir
                     case 2
-                        s_graph(index,index+numColumns) = 4;%2;%
-                        s_graph(index+numColumns,index) = 4;%2;%
+                        adj_index = index+numColumns;
                     case 6
-                        s_graph(index,index-1) = 4;%2;%
-                        s_graph(index-1,index) = 4;%2;%
+                        adj_index = index-1;
                     case 8
-                        s_graph(index,index-numColumns) = 4;%2;%
-                        s_graph(index-numColumns,index) = 4;%2;%
+                        adj_index = index-numColumns;
                     case 4
-                        s_graph(index,index+1) = 4;%2;%
-                        s_graph(index+1,index) = 4;%2;%
+                        adj_index = index+1;
                 end
+                s_graph(index,adj_index) = gridCells(adj_index).bNeighL*4-4;%d_max+1%4;%2;%
+%                 s_graph(index+numColumns,index) = d_max+1;%4;%2;%
+
+
         end
 end
