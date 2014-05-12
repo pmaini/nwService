@@ -56,7 +56,7 @@ if (agents(agent).will_move == 1)
             %     non zero check not needed now initialized with value 100 hops
             connAgents = find(agents(agent).agentConn);
             connAgents = connAgents((agents(agent).agentConn(connAgents) ~= 100));
-            connAgents = connAgents((agents(agent).agentConn(connAgents) <= agents(agent).is_connected+1));            
+            connAgents = connAgents((agents(agent).agentConn(connAgents) < agents(agent).is_connected+1));            
             
             cAgentsIndex = agents(agent).agentIndices(connAgents);
             %         connection = zeros(1,length(cAgentsIndex));
