@@ -8,11 +8,6 @@ global numAgent numTask;
 for i = 1:numAgent 
     nodes = setdiff(agents(i).agentsInRange,numAgent+1);
     
-    %check for state change
-%     if (isequal(agents(i).oldTask_status,agents(i).task_status) && isequal(agents(i).oldAgentsInRange,agents(i).agentsInRange))
-%         continue;
-%     end
-    
     agents(i).old_role_vector = agents(i).role_vector;
     agents(i).oldAgentsInRange = agents(i).agentsInRange;
     agents(i).oldTask_status = agents(i).task_status;
