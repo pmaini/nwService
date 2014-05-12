@@ -56,25 +56,7 @@ if (agents(agent).will_move == 1)
             %     non zero check not needed now initialized with value 100 hops
             connAgents = find(agents(agent).agentConn);
             connAgents = connAgents((agents(agent).agentConn(connAgents) ~= 100));
-            connAgents = connAgents((agents(agent).agentConn(connAgents) <= agents(agent).is_connected));
-            temp  = connAgents;
-            for j = 1:length(connAgents)
-                if length(agents(agent).links{1,connAgents(j)}) == 2
-                    continue;
-                end
-                if (agents(agent).agentConn(connAgents(j)) >= agents(agent).is_connected)
-%                 if agents(agent).links{1,connAgents(j)}(2) == agents(agent).bconnectPath(2)
-                    temp(j) = 0;
-                end
-            end
-            temp(temp ==0) =[];
-            connAgents = temp;
-            %         connAgentsEqual =  connAgents((agents(agent).agentConn(connAgents) == agents(agent).is_connected+1));
-            %         for ind = 1:length(connAgentsEqual)
-            %            if ~ismember(agents(connAgentsEqual(ind)).bconnectPath)
-            %                connAgents = [connAgents connAgentsEqual(ind)];
-            %            end
-            %         end
+            connAgents = connAgents((agents(agent).agentConn(connAgents) <= agents(agent).is_connected+1));            
             
             cAgentsIndex = agents(agent).agentIndices(connAgents);
             %         connection = zeros(1,length(cAgentsIndex));
