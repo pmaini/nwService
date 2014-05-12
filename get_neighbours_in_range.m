@@ -18,8 +18,8 @@ yc_0 = gridpoints_y(cell_index(:));
 yc_1 = yc_0 - 0.5;
 yc_2 = yc_0 + 0.5;
 yc = [yc_1 yc_2 yc_2 yc_1];
-% dx = max(xc) - min(xc);
-% dy = max(yc) - min(yc);
+dx = max(xc) - min(xc);
+dy = max(yc) - min(yc);
 neighbours = [];
 
 z = ceil(range);
@@ -32,8 +32,8 @@ yh = max(yc_0 + z);
 x = xl:1:xh;
 y = yl:1:yh;
 
-% xpoly = [min(xc),min(xc),min(xc)+dx,min(xc)+dx,min(xc)];
-% ypoly = [min(yc),min(yc)+dy,min(yc)+dy,min(yc),min(yc)];
+xpoly = [min(xc),min(xc),min(xc)+dx,min(xc)+dx,min(xc)];
+ypoly = [min(yc),min(yc)+dy,min(yc)+dy,min(yc),min(yc)];
 
 indices = [];
 for i = 1:length(y)
@@ -42,7 +42,8 @@ for i = 1:length(y)
         if ~ismember(index,cell_index)
             %By checking using coordintates the invalid neighbour
             %cells whose indices are 0 are also added.
-            distance = min(dist([x(i),y(j)],[xc;yc]));
+            distance = p_poly_dist(x(i),y(j),xpoly,ypoly);
+%             distance = min(dist([x(i),y(j)],[xc;yc]));
             if (distance <= range)
                 neighbours = [neighbours index];
             end
