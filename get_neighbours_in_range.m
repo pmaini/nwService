@@ -11,15 +11,15 @@ function neighbours = get_neighbours_in_range(cell_index,range)
 %%of reference can give is (sqrt(2)/2) which is arnd 0.712...so it is okay!
 global gridpoints_x gridpoints_y;
 xc_0 = gridpoints_x(cell_index(:));
-xc_1 = xc_0 - 0.5;
-xc_2 = xc_0 + 0.5;
-xc = [xc_1 xc_2 xc_1 xc_2];
+% xc_1 = xc_0 - 0.5;
+% xc_2 = xc_0 + 0.5;
+% xc = [xc_1 xc_2 xc_1 xc_2];
 yc_0 = gridpoints_y(cell_index(:));
-yc_1 = yc_0 - 0.5;
-yc_2 = yc_0 + 0.5;
-yc = [yc_1 yc_2 yc_2 yc_1];
-dx = max(xc) - min(xc);
-dy = max(yc) - min(yc);
+% yc_1 = yc_0 - 0.5;
+% yc_2 = yc_0 + 0.5;
+% yc = [yc_1 yc_2 yc_2 yc_1];
+dx = max(xc_0) - min(xc_0);
+dy = max(yc_0) - min(yc_0);
 neighbours = [];
 
 z = ceil(range);
@@ -32,18 +32,20 @@ yh = max(yc_0 + z);
 x = xl:1:xh;
 y = yl:1:yh;
 
-xpoly = [min(xc),min(xc),min(xc)+dx,min(xc)+dx,min(xc)];
-ypoly = [min(yc),min(yc)+dy,min(yc)+dy,min(yc),min(yc)];
+% xpoly = [min(xc),min(xc),min(xc)+dx,min(xc)+dx,min(xc)];
+% ypoly = [min(yc),min(yc)+dy,min(yc)+dy,min(yc),min(yc)];
+xpoly = [min(xc_0),min(xc_0),min(xc_0)+dx,min(xc_0)+dx,min(xc_0)];
+ypoly = [min(yc_0),min(yc_0)+dy,min(yc_0)+dy,min(yc_0),min(yc_0)];
 
 indices = [];
-for i = 1:length(y)
-    for j = 1:length(x)
-        index = find_index(x(j),y(i));
+for j = 1:length(y)
+    for i = 1:length(x)
+        index = find_index(x(i),y(j));
         if ~ismember(index,cell_index)
             %By checking using coordintates the invalid neighbour
             %cells whose indices are 0 are also added.
             distance = p_poly_dist(x(i),y(j),xpoly,ypoly);
-%             distance = min(dist([x(i),y(j)],[xc;yc]));
+%             distance = min(dist([x(i),y(j)],[xc_0;yc_0]));
             if (distance <= range)
                 neighbours = [neighbours index];
             end
