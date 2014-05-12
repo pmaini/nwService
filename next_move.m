@@ -62,7 +62,12 @@ if (agents(agent).will_move == 1)
                 if length(agents(agent).links{1,connAgents(j)}) == 2
                     continue;
                 end
+                %make sure only those with is_connected less than myself
+                %are use to make connections
                 if (agents(agent).agentConn(connAgents(j)) >= agents(agent).is_connected)
+                    
+%                 %2nd hop of me and my follower should not be the same.
+%                 %Both would move assuming both would remain connected.  
 %                 if agents(agent).links{1,connAgents(j)}(2) == agents(agent).bconnectPath(2)
                     temp(j) = 0;
                 end
