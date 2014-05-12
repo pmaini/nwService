@@ -1,0 +1,246 @@
+Task location generation correctified, now working properly.
+GUI problems solved.
+Made refresh_task_plot to make all gui related actions at one go.
+For some unknown reason, deleting the plot is not deleting the figure, hence using the visibility property
+Implemented plot visibility option for tasks.
+
+Code working properly :-)
+
+in find_agents_around an agent must search for n/w connectivity through another agent, only if it is not in direct contact of the base.
+working on the cooperation when agent is stuck at base.
+an agent who is returning to base, if is allocated as relay or service, all nodes providing connectivity to it, must also be booked alongside.
+
+FOR OBSTACLE DETECTION:
+utilise obstacle information for populating neighbour values in update_agents_around.
+
+%if free then no leader no follower, no current task all default
+
+%if no task assigned current task = 0
+
+%if free and in relay no follower no leader
+
+%for the x seconds you wait to declare a deadlock, do check that the
+%new_loc value is consistently same.
+
+19/1/14
+Next to do what happens when 1st task is not feasible
+For LoS connectivity, if the LoS just brushes the obstacle, then connectivity is NOT obstructed.
+In this case there would be two identical intersection points.
+If it intersects the obstacle at two distinct points then connectivity is obstructed.
+
+20/1/14
+LoS connectivity implemented. isConnectionPossible checks if the two points are in range and calls
+isLosClear, which checks for LoS visibility. Also implemented for point and polygon, say base and agent.
+
+Next is buffer implementation. Also if for simulations, the communication network is represented 
+as a graph, it might help.
+
+Problem in isConnectionPossible, the distance does not get a value if LoS is not clear
+
+21/1/14
+LoS when 2 obstacle blocks meet at corner - taken care of!(in isLosClear function)
+comm_network impplemented now independently
+
+Next to do is the common buffer and data sharing part.
+
+12/02/2014
+verfied upto define_base_station: everything ok
+graph = env_graph placement to be decided
+
+13/02/2014
+created update_world to put together all regular updations
+update network is being used to create communication network
+
+Feedback
+Event log
+metric: busy and not-connected for how long.
+
+19/02/2014
+check_feasible.m does a non-distributed thing, for details go to file.
+Implemented Information Exchange
+Information mereger would happen as per requirement.
+at_base and location_at_base now updated on sensing rather than centrally as earlier.
+Still a slight issue for location_at_base, to be rectified.
+CBBA code to be merged next.
+Block diagram with CBBA in loop.
+
+25-27/02/2014
+LOS added to next move.
+next_move integrated
+get_step dikstra broken, all sensing part moved to sense_environment
+update_agents integrated
+initialize service 3*sqrt(2) task distance now 3 steps dikstra
+playground totally modularised
+loading of old scenes built in. Now possible just by giving filename to create world
+
+28/2/2014
+Principle of self organisation:
+next_move only ensure your own connectivity. Leader's should be (and is)
+an after effect.
+differential cycle rate.
+agents or soft obstacles now remove directional edge.
+is_connected updated in update_network gives path length(no of hops)
+Check task-preemption
+
+01/03/2014
+Freed update_agents from mod 3 revision.
+The updates to environment graph did not involve both way paths updated. This
+was the reason why at times the agents jumped on to each other.Corrected that now.
+Next is checking why some free agents are moving away.(saved a test case)
+ and removing base constraint.
+888888888888888888888888888888888888888888888888888888
+88Graph formation has been checked. Giving weight 0 is equivalent to removing
+88edge from sparse matrix.
+888888888888888888888888888888888888888888888888888888
+
+02-03/03/2014
+implemented index2cood and cood2index functions as wrappers for call to coordinate
+and index base functions using index and coordinates respectively.
+implemented get_neighbours_at_range function, which gives neighbouring locations
+(valid to world boundaries) within given range. Generic function for all
+ranges aka sensing, communication and step_size.
+Initial agent distribution is now random within c_range
+create_world is made robust and modular.
+also includes option to reload an old file simply by calling with the filename.
+Base size now made constant. 
+obstacle buffer increased so not to make any within base c_range
+
+04/03/2014
+separated out the the 3 ranges and corresponding neighbourhoods:
+c_range: communication
+s_range: sensing
+t_range: translational
+
+20/03/2014
+reimplemented sensing and neighbour updation:
+3 ranges for agents
+1 for base
+0 for obstacles
+0 for tasks
+added obstacle vector to add/exchange information received.
+modularied code
+
+21/03/2014
+Idea of different ranges reduces to only c_range for base.
+This allows constant base size for varibale number of agents.
+
+02/04/2014
+data sharing not happening - fixed
+implemented collision avoidance
+using the possible next steps of the sensed agents path cost is updated
+
+05/04/2014
+isLosClear is giving neighbour obstructed on two sides as LOs Clear.
+Fixed that.
+
+09/04/2014
+the main computation is to find Los connectivity. It is calculated for every
+iteration between all agents considering all obstacles. This should be done once in the beginning.
+Implementing it.
+
+10/04/2014
+LOS matrix and neighbourhood matrix. numCells-by-max_c_neighbours. This matrix
+is computed to ease out the computation effort to get los clarity in every iteration
+Finished the one time computation of Los clear cells and integrated it into network updation.
+implemented cost computation
+
+11/04/2014
+implemented get_step_dikjsrta
+implemented cost sharing
+
+14/04/2014
+errors in update graph and Los matrix computation  - detected and corrected
+
+15/04/2014
+task information now reaches the agents through base and by mutual exchange
+of information.
+base static initialization separated out.
+
+To Do:
+Implement target selection
+
+18-19/04/2014
+update_role_vector
+process_role_vector
+
+21/04/2014
+get_step_dijkstra
+
+22/04/2014
+next_step
+
+To do:
+Change behavior when connectivity decreases
+
+26/04/2014
+constraint on only those tasks are considered for relay for which there are
+atmost 2 other agents in local vicinity who have a lesser cost to the task.
+This prevents flocking of all agents to a single task.
+
+When in relay mode and if the leader is within the ideal range, the agent 
+does not need to move. This is a negative constraint.
+
+In the sense, the positive contraint, that tells when to move should only 
+consider self connectivity and not leader connectivity.
+
+In paper also mention the long path due to late obstacle detection
+
+Collision Avoidance was not proper because of naming errors in update_graph.
+Fixed that.
+
+To do:
+decide and implement how to consider the self connectivity contraint
+implement termination condition
+
+27/04/2014
+update_role_vector and process_role_vector problems fixed
+
+28/04/2014
+use history
+Done. By giving weights to previous assignments.
+commented out in getstepDijkstra
+
+relay only if leader also involved in the task
+--idea scrapped: against philosophy..if the considered leader not going for
+the task that the relay thinks then later on cost function will take care of it.
+
+leader only if there is a follower
+--slight modification. There should be neighbours.
+commented out in update_role_vector
+
+If cost is same the one with lower index becomes the leader
+
+29/04/2014
+network constraint implemented
+if within base range: good
+otherwise if there is an agent in range that covers the new location
+and is not connected to the base through the former go ahead.
+For this find the agents which have a communication path to the base station
+atmost equal to the host agent's compared in number of hops. Of such agents
+find if anybody covers the new location. Problem is while checking static
+neghbour is assumed, however the agent may move.
+EDIT: allowed upto host.is_connected + 1(problems to be checked: what if it 
+is connected through myself)
+
+
+Played with weights of current and old targets
+Played with next_move freq
+weights in process_role_vector and get_step_dijkstra
+
+To do:
+termination condition
+behavior when no agent in communication range
+
+Probably somewhere there is some initialization of agents in Simulate world
+Though not sure. Sometimes it initializes task_status to 1 and all. Not sure
+but seems a wrongly placed initialization.
+
+09/05/2014
+do not update the role vector in every iteration. added state check: neighbourhood
+and task status. checks put in update and process role vector.
+
+10/05/2014
+bC_range and aC_range brought out
+serial number in case of equal cost for leader
+initialization of is_connected to 100 hops from 0 hops
+initialization of relay _cost and cost_to_relay to 0 from cost vector
