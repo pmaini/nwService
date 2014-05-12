@@ -79,48 +79,6 @@ if (agents(agent).will_move == 1)
         if connectivity == 0
             agents(agent).will_move = 0;
         end
-        
-        %     % because when its free and its in_relay the movement is not constrained
-        %     % the agent in that condition would be returning home
-        %     if ~((agents(agent).in_relay == 1) && (agents(agent).free == 1))
-        %
-        %         if (agents(agent).follower == 0)
-        % %             covered = isConnectionPossible(base.xpoly,base.ypoly,x_current,y_current,base,obstacle,2*sqrt(2));
-        %             covered = ismember(agents(agent).index,base_connected);
-        %             if (covered == 0)%new location not in base vicinity
-        %
-        %                 if(agents(agent).free == 0)%agent can request for a follower only if it is going out for work
-        %                     agents(agent).request_follower = [1 x_current y_current];
-        %                     agents(agent).will_move = 0;
-        %                 end
-        %             end
-        %
-        %         elseif(agents(agent).follower ~= 0)% has a follower
-        %
-        % % hence would be coming back from the field, so would come in the vicinity
-        % % first then immediate neighbourhood of the base. When in vicinity relieve
-        % % the follower, if in next move comes to immediate neighbourhood, first
-        % % condition will take care(without follower)
-        %             covered = isConnectionPossible(base.xpoly,base.ypoly,x_current,y_current,base,obstacle,2*sqrt(2));
-        %
-        %             if covered == 1%new location covered by the base, so let go of the follower
-        %
-        %                agents(agents(agent).follower).leader = 0;
-        %                agents(agents(agent).follower).free = 1;
-        %                agents(agent).follower = 0;
-        %
-        %             elseif (covered == 0)% new location not covered by the base
-        %                 covered = isConnectionPossible(x_current,y_current,agents(agents(agent).follower).xc, agents(agents(agent).follower).yc,base,obstacle,2*sqrt(2));
-        %
-        %                 if (covered == 0)%new location outside base not covered by follower
-        %
-        %                     agents(agent).will_move = 0;
-        %                     agents(agent).need_cover = [1 x_current y_current];
-        %
-        %                 end
-        %             end
-        %         end
-        %     end
     end
 end
 
@@ -128,17 +86,7 @@ if (agents(agent).will_move == 1)
     agents(agent).xc = x_next;
     agents(agent).yc = y_next;
     agents(agent).index = find_index(x_next,y_next);
-    agents(agent).moved = 1;
-    %     agents(agent).new_loc = dir;
-    
-    % %will_move is zero, try checking the value of moved flag
-    % elseif ((agents(agent).free == 0) || (agents(agent).in_relay == 1)) && (strcmp(dir,'centre')==0)
-    % % Capture the condition when it will not move even though it wanted to.
-    % % If its stuck, in the 2nd iteration itself the dir will start coming out to
-    % % be centre, hence did not move time recorded only for those which wanted to move
-    %     agents(agent).moved = agents(agent).moved + 1;
-    %     agents(agent).new_loc = dir;
-    
+    agents(agent).moved = 1;    
 else
     agents(agent).moved = 0;
 end
