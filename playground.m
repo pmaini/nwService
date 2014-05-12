@@ -7,7 +7,7 @@ close all;
 
 global grid_type numRows numColumns xmin ymin env_graph numCells xmax ymax;
 global numAgent numTask numObstacle sim_cont comm_network aC_range bC_range;
-global task_counter max_tasks current_tasks time Total_obstacle_space;
+global task_counter max_tasks current_tasks time Total_obstacle_space d_max;
 global size_x size_y size_g gridpoints_x gridpoints_y covered_fraction;
 global gridlocation gridCells s_time index_for_UD losMat cNeighMat maxTargets;
 
@@ -25,7 +25,7 @@ aC_range = 2*sqrt(2);
 bC_range = 2*sqrt(2);
 maxTargets = 1;
 
-[base, obstacle, agent_node, task_node] = create_world();%(filename);%
+[base, obstacle, agent_node, task_node] = create_world('a6t4o2');%(filename);%
 
 [base, agent_node, task_node] = setup_world(base, obstacle, agent_node, task_node);
 
