@@ -86,7 +86,7 @@ comm_network = sparse(a,b,1,numAgent+1,numAgent+1,((numAgent+1)^2));
 
 %Find number of hops to base
 for k = 1:numAgent
-    [cost,path,~] = graphshortestpath(comm_network,k,numAgent+1,'Directed','False');
+    [cost,path,~] = graphshortestpath(comm_network,k,numAgent+1);
     if (cost ~= Inf)&&(numel(path)>1)
         agents(k).is_connected = length(path)-1;%cost;
         agents(k).bconnectPath = path;

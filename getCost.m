@@ -9,7 +9,7 @@ a_index = agents(agent).index;
 for i = 1:numTask
     if (agents(agent).task_status(i) == 1)
         t_index = tasks(i).index;
-        [distance,~,~] = graphshortestpath(agents(agent).view,a_index,t_index,'Directed',false);
+        [distance,~,~] = graphshortestpath(agents(agent).view,a_index,t_index,'Directed',true);
         agents(agent).cost_vector(i) = distance;
     end
 end

@@ -37,7 +37,7 @@ agents_required = 0;
 
 %check for reachability
 noObstNeigh = setdiff([base.c_neighbours{6,:}],[obstacle.index]);
-[distance , ~, ~] = graphshortestpath(env_graph,noObstNeigh(1),task.index,'Directed','False');
+[distance , ~, ~] = graphshortestpath(env_graph,noObstNeigh(1),task.index,'Directed',true);
 
 if isinf(distance)
     feasible = 0;
