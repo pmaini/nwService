@@ -16,9 +16,10 @@ end
 
 flag = 0;
 for i = 1:numTask
-   if task_node(i).serviced == 1
+   if task_node(i).serviced == 1 && task_node(i).processed == 0
        task_node(i).active = 0;
        flag = 1;
+       task_node(i).processed = 1;
    end
    if task_node(i).serviced == 0 && task_node(i).active == 0
        if flag == 1
