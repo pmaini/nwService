@@ -16,7 +16,7 @@ base = build_neighbourhood(base,obstacle);
 
 feasible = 0;
 i = 1;
-while i <= 1
+while i <= 2
     feasible = check_feasible(agent_node,task_node(i),base, obstacle);
     if feasible == 1
         task_node(i).active = 1;
