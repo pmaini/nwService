@@ -46,9 +46,17 @@ if (agents(agent).will_move == 1)
     end
     
     if agents(agent).will_move ~= 0
-        connectivity = 0;
         
-        if ismember(n_index,[base.c_neighbours{6,:}])
+        %if connected then new location checked for connectivity o/w skip
+        %the check. State should not deteriorate. atleast as good as
+        %current
+        if agents(agent).is_connected == 100
+            connectivity = 1;
+        else
+            connectivity = 0;
+        end
+        
+        if connectivity == 0 && ismember(n_index,[base.c_neighbours{6,:}])
             connectivity = 1;
         end
         
