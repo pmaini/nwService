@@ -29,7 +29,10 @@ aC_range = 2*sqrt(2);
 bC_range = 2*sqrt(2);
 maxTargets = 2;
 
-[base, obstacle, agent_node, task_node] = create_world('a3t4o2');%(filename);%
+%In every run the generated environment is saved as [aitjok.mat] file
+%i is numAgent, j is numTask, k is numObstacle. To load previous state
+%give the filename as input to create_world as 'a3t4o2'
+[base, obstacle, agent_node, task_node] = create_world();%(filename);%
 
 [base, agent_node, task_node] = setup_world(base, obstacle, agent_node, task_node);
 
