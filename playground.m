@@ -1,5 +1,9 @@
 %% Strategies for base network constrained task servicing at multiple sites
-
+%yellow agents are free
+%green ones are in relay
+%blue ones are leader or service agents
+%service agents have caption as 'i-Tj',
+%where 'i' is the agent number and 'j' is the task number
 %% Initializations
 
 clear all;
@@ -14,18 +18,18 @@ global gridlocation gridCells s_time index_for_UD losMat cNeighMat maxTargets;
 %0: square: coordinates at bottom left of the cell
 %1: hexagon: coordinates at the center of the cell
 grid_type = 0;% 1;%
-numRows = 16;
-numColumns = 16;
+numRows = 8;
+numColumns = 8;
 xmin = 0;
 ymin = 0;
-numAgent = 6;
+numAgent = 3;
 numTask = 4;
 numObstacle = 2;
 aC_range = 2*sqrt(2);
 bC_range = 2*sqrt(2);
-maxTargets = 1;
+maxTargets = 2;
 
-[base, obstacle, agent_node, task_node] = create_world('a6t4o2');%(filename);%
+[base, obstacle, agent_node, task_node] = create_world('a3t4o2');%(filename);%
 
 [base, agent_node, task_node] = setup_world(base, obstacle, agent_node, task_node);
 
