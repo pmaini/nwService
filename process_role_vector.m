@@ -13,10 +13,12 @@ for i = 1:numAgent
    if agents(i).is_connected == 100
        agIndices = [agents(i).s_neighbours{6,:}];
        agIndices(agIndices==0) = [];
+       agIndices(ismember(agIndices,agents(i).obstacles)) = [];
        agLevels = [gridCells(agIndices).bNeighL];
        minAgL = min(agLevels);
        minAgIndices = agIndices(agLevels == minAgL);
        dist = 100;
+       tarLoc = agents(i).index;
        for j = 1:length(minAgIndices)
           [dist1,~,~] = graphshortestpath(agents(i).view,agents(i).index,minAgIndices(j));
           if dist1 <= dist
