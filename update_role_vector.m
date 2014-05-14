@@ -11,6 +11,8 @@ for i = 1:numAgent
     agents(i).old_role_vector = agents(i).role_vector;
     agents(i).oldAgentsInRange = agents(i).agentsInRange;
     agents(i).oldTask_status = agents(i).task_status;
+    agents(i).task_assigned = 0;
+    agents(i).in_relay = 0;
     
     agents(i).role_vector = zeros(1,numTask);
     num_targets = agents(i).max_targets;
@@ -74,5 +76,11 @@ for i = 1:numAgent
        agents(i).role_vector(relay) = 2;
        relayCandCost(relayIndex) = 101;
        
-    end   
+    end
+    if sum(agents(i).role_vector == 1)
+       agents(i).task_assigned = sum(agents(i).role_vector == 1);
+    end
+    if sum(agents(i).role_vector == 2)
+       agents(i).in_relay = sum(agents(i).role_vector == 2);
+    end
 end
