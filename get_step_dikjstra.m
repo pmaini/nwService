@@ -89,8 +89,7 @@ end
 x_next = floor(x_total/n_factor) + 0.5;
 y_next = floor(y_total/n_factor) + 0.5;
 % n_index = find_index(x_next,y_next);
-   
-    
+
 if (x_total == 0) && (y_total == 0)
     got_move = 0;     
 else        
