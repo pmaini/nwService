@@ -92,10 +92,10 @@ for k = 1:numAgent
     % Populating the t_neighbour cell array is not necessary hence not done.
     for j = 1:agents(k).max_t_neighbour
         
-         if ismember(agents(k).t_neighbours{6,j},[base.indices obstacle(:).index])
+         if ismember(agents(k).t_neighbours{6,j},[base.indices agents(k).obstacles])
             agents(k).t_neighbours{3,j} = 'NULL';
             agents(k).t_neighbours{4,j} = 'NULL';
-            agents(k).t_neighbours{6,j} = 0;
+%             agents(k).t_neighbours{6,j} = 0;
             continue;
          end
         
@@ -104,17 +104,17 @@ for k = 1:numAgent
         % spaces(ie. not in base---since that is what is left). Base is
         % already added to the graph.
 
-        if ismember(agents(k).t_neighbours{6,j},setdiff([agents(:).index],agents(k).index))
+        if ismember(agents(k).t_neighbours{6,j},[agents(setdiff(agents(k).agentsInRange,numAgent+1)).index])
             obs(j).type = 'soft';
-            obs(j).dir = j*2;
+            obs(j).dir = j; %1:from up,2:from right,3:from left,4:from bottom
             obs(j).xc = agents(k).t_neighbours{1,j};
             obs(j).yc = agents(k).t_neighbours{2,j};
             obs(j).size = [1 1];
             obs(j).index = agents(k).t_neighbours{6,j};
             agents(k).view = update_graph(agents(k).view,obs(j),1);
         elseif ismember(agents(k).t_neighbours{6,j},agents(k).agentsNextLocs)
-            obs(j).type = 'collAvoid';%'soft';%
-            obs(j).dir = j*2;
+            obs(j).type = 'collAvoid';
+            obs(j).dir = j; %1:from up,2:from right,3:from left,4:from bottom
             obs(j).xc = agents(k).t_neighbours{1,j};
             obs(j).yc = agents(k).t_neighbours{2,j};
             obs(j).size = [1 1];
@@ -122,7 +122,7 @@ for k = 1:numAgent
             agents(k).view = update_graph(agents(k).view,obs(j),0);
         elseif ~ismember(agents(k).t_neighbours{6,j},[base.indices obstacle(:).index])
             obs(j).type = 'soft';
-            obs(j).dir = j*2;
+            obs(j).dir = j; %1:from up,2:from right,3:from left,4:from bottom
             obs(j).xc = agents(k).t_neighbours{1,j};
             obs(j).yc = agents(k).t_neighbours{2,j};
             obs(j).size = [1 1];
