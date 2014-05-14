@@ -43,6 +43,7 @@ for j = 1:numTask
     task_node(j).servicing_agent = 0 ;
     task_node(j).serviced = 0;
     task_node(j).service_time = 0;
+    task_node(j).processed = 0;%whether already used for new task generation
     
     if mod(j,2) == 0
         task_node(j).plot(1) = plot(task_node(j).xc,task_node(j).yc,'hr','MarkerSize',16,'MarkerFaceColor','magenta');
