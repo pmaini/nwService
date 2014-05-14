@@ -77,8 +77,8 @@ for i = 1:numAgent
     %obstacles known
     agent_node(i).obstacles = [];
         
-    agent_node(i).leader = 0;
-    agent_node(i).follower = 0;
+%     agent_node(i).leader = 0;
+%     agent_node(i).follower = 0;
     
     %number,xc,yc,index of targets
     agent_node(i).max_targets = maxTargets;
@@ -105,7 +105,7 @@ for i = 1:numAgent
     agent_node(i).links = cell(1,numAgent);
     
     %involvement with a task service(as SA or as RA)
-    agent_node(i).free = 1;
+%     agent_node(i).free = 1;
     
     %busy as RA, may or may not be involved with task service
     agent_node(i).in_relay = 0;
@@ -115,7 +115,7 @@ for i = 1:numAgent
     agent_node(i).task_status = zeros(1,numTask);
     agent_node(i).oldTask_status = ones(1,numTask);
     
-    agent_node(i).current_task = 0;
+%     agent_node(i).current_task = 0;
     agent_node(i).cost_vector = 100*ones(1,numTask);
     
     %0: not concerned,1: SA, 2: RA, 3: I coudn't service you, find a new SA
@@ -130,10 +130,10 @@ for i = 1:numAgent
     agent_node(i).num_relay_cand = zeros(1,numTask);
     
     %100: relative infinity, manhattan distance to the current task
-    agent_node(i).distance_to_task = 100;
-    agent_node(i).request_follower = [0 0 0];
-    agent_node(i).need_cover = [0 0 0];
-    agent_node(i).give_cover = [0 0];
+%     agent_node(i).distance_to_task = 100;
+%     agent_node(i).request_follower = [0 0 0];
+%     agent_node(i).need_cover = [0 0 0];
+%     agent_node(i).give_cover = [0 0];
     
     %set flags if at boundary
     agent_node(i).at_rxwall = 0;               %read at right  x-axis wall
