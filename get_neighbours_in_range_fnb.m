@@ -1,4 +1,5 @@
-function neighbours = get_neighbours_in_range_fcc(cell_index,range)
+function neighbours = get_neighbours_in_range_fnb(cell_index,range)
+% fnb: from node boundary
 %%PLEASE READ%%Get indices of naighbouring locations given index(es) &
 %%range. Locations outside world boundary are given the consistent index 0.
 %%This function does not "CHECK" LOS connectivity. It only gives indices of
