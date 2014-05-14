@@ -1,4 +1,4 @@
-function [indices,upperL] = bNeighbourhood_level(base)
+function bNeighbourhood_level(base)
 
 global numCells gridpoints_x gridpoints_y gridCells d_max;
 
