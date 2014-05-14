@@ -45,7 +45,6 @@ for j = 1:length(y)
             %By checking using coordintates the invalid neighbour
             %cells whose indices are 0 are also added.
             distance = p_poly_dist(x(i),y(j),xpoly,ypoly);
-%             distance = min(dist([x(i),y(j)],[xc_0;yc_0]));
             if (distance <= range)
                 neighbours = [neighbours index];
             end
