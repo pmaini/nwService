@@ -32,6 +32,10 @@ while (sim_cont == 1)
     
     pause(0.1);
     
+    if time == 24
+        pause(1);
+    end
+    
     [task_node agent_node] = update_task_status(task_node,agent_node,base);
     
 %     update_sim_cont(task_node,agent_node);
