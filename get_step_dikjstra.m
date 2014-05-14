@@ -58,12 +58,12 @@ for i = 1:agents(agent).max_targets
     
     t_index = agents(agent).old_targets(i).index;
     
-    [distance,path,~] = graphshortestpath(agents(agent).view,c_index,t_index,'Directed',false);
+    [distance,path,~] = graphshortestpath(agents(agent).view,c_index,t_index,'Directed',true);
     
     %When in relay mode, if the leader is close by, ideal region(s_range)
     %then no need to move
     if strcmp(agents(agent).old_targets(i).type,'relay') == 1
-        agents(agent).old_targets(i).weight = 1/agents(agent).old_targets(i).distance_to_target;%50;
+        agents(agent).old_targets(i).weight = 0;%1/agents(agent).old_targets(i).distance_to_target;%50;
         if ismember(agents(agent).old_targets(i).index,[agents(agent).s_neighbours{6,:}])
             path = c_index;
             distance = 0;
