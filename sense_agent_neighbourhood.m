@@ -64,14 +64,14 @@ for k = 1:numAgent
                 
                 % check if the task is in the neighbourhood, only for the
                 % SA as others have no idea that there is a task
-                if agents(k).task_assigned == 1
-                    %A SA should be able to detect any task within its task
-                    %queue. FEATURE TO BE ADDED
-                    %                     tasks = find(agents(k).task);
-                    if (agents(k).s_neighbours{6,j} == agents(k).target(1,3))
-                        agents(k).s_neighbours{4,j} = ['task',num2str(agents(k).current_task)];
-                    end
-                end
+%                 if agents(k).task_assigned == 1
+%                     %A SA should be able to detect any task within its task
+%                     %queue. FEATURE TO BE ADDED
+%                     %                     tasks = find(agents(k).task);
+%                     if ismember(agents(k).s_neighbours{6,j},[agents(k).targets(:).index])
+%                         agents(k).s_neighbours{4,j} = ['task',num2str(agents(k).current_task)];
+%                     end
+%                 end
             end
         end
     end
