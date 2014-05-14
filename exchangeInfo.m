@@ -36,7 +36,7 @@ for i = 1:numAgent
     end
     
     if ismember(numAgent+1,agents(i).agentsInRange)
-        serviced = find(information(i).task_status == 2);
+        serviced = find(agents(i).task_status == 2);
         if ~isempty(serviced)
             for sIndex = 1:length(serviced)
                 task_node(serviced(sIndex)).serviced = 1;     
