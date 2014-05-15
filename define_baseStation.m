@@ -45,10 +45,10 @@ base.indices = sort(base.indices);
 
 base.xc = gridpoints_x(base.index);
 base.yc = gridpoints_y(base.index);
-base.xpoly = [base.xc base.xc+base.size(1)-1 base.xc+base.size(1)-1 base.xc base.xc];
-base.ypoly = [base.yc base.yc base.yc+base.size(2)-1 base.yc+base.size(2)-1 base.yc];
-% base.xpoly = base.xpoly - 0.5;
-% base.ypoly = base.ypoly - 0.5;
+base.xpoly = [base.xc base.xc+base.size(1) base.xc+base.size(1) base.xc base.xc];
+base.ypoly = [base.yc base.yc base.yc+base.size(2) base.yc+base.size(2) base.yc];
+base.xpoly = base.xpoly - 0.5;
+base.ypoly = base.ypoly - 0.5;
 
 for i=1:size(base.indices,2)
     rectangle('Position',[gridpoints_x(base.indices(i))-0.5,gridpoints_y(base.indices(i))-0.5,1,1],'FaceColor','blue');
