@@ -7,7 +7,6 @@ function agents = sense_agent_neighbourhood(base, obstacle, agents)
 %%5. Check for Tasks.
 global numAgent gridpoints_x gridpoints_y;
 
-obs = struct([]);
 
 for k = 1:numAgent
     
@@ -56,6 +55,21 @@ for k = 1:numAgent
             
             if (strcmp(agents(k).s_neighbours{4,j},'EMPTY') == 1)
                 
+                %add back edges removed for soft obstacles within s_range
+                if ismember(agents(k).s_neighbours{6,j},agents(k).soft_obs(:,1)')
+                    sObIndex = find(agents(k).soft_obs(:,1)' == agents(k).s_neighbours{6,j});
+                    sObDir = agents(k).soft_obs(sObIndex,2);
+                    for numSoB = 1:length(sObIndex)
+                        obs.type = 'soft';
+                        obs.dir = sObDir(numSoB); %1:from up,2:from right,3:from left,4:from bottom
+                        obs.xc = agents(k).s_neighbours{1,j};
+                        obs.yc = agents(k).s_neighbours{2,j};
+                        obs.size = [1 1];
+                        obs.index = agents(k).s_neighbours{6,j};
+                        agents(k).view = update_graph(agents(k).view,obs,0);
+                    end
+                    agents(k).soft_obs(sObIndex,:) = [];
+                end
                 % The check for tasks is placed within the check for an
                 % empty cell because this check will decide whether or not
                 % the agent can go into that cell or not. And it should go
@@ -76,6 +90,8 @@ for k = 1:numAgent
         end
     end
 end
+
+obs = struct([]);
 
 for k = 1:numAgent
     
@@ -105,6 +121,7 @@ for k = 1:numAgent
         % already added to the graph.
 
         if ismember(agents(k).t_neighbours{6,j},[agents(setdiff(agents(k).agentsInRange,numAgent+1)).index])
+            agents(k).soft_obs = [agents(k).soft_obs;agents(k).t_neighbours{6,j} j];
             obs(j).type = 'soft';
             obs(j).dir = j; %1:from up,2:from right,3:from left,4:from bottom
             obs(j).xc = agents(k).t_neighbours{1,j};
@@ -113,6 +130,7 @@ for k = 1:numAgent
             obs(j).index = agents(k).t_neighbours{6,j};
             agents(k).view = update_graph(agents(k).view,obs(j),1);
         elseif ismember(agents(k).t_neighbours{6,j},agents(k).agentsNextLocs)
+            agents(k).soft_obs = [agents(k).soft_obs;agents(k).t_neighbours{6,j} j];
             obs(j).type = 'collAvoid';
             obs(j).dir = j; %1:from up,2:from right,3:from left,4:from bottom
             obs(j).xc = agents(k).t_neighbours{1,j};

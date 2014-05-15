@@ -61,7 +61,7 @@ switch flag
                 s_graph(adj_index,index) = 0;
         end
         
-    case 0
+    case 0 %remove obstacle, add edges
         switch node.type
             case 'soft'                
                 switch node.dir

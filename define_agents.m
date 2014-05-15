@@ -76,6 +76,7 @@ for i = 1:numAgent
     
     %obstacles known
     agent_node(i).obstacles = [];
+    agent_node(i).soft_obs = zeros(1,2);
         
 %     agent_node(i).leader = 0;
 %     agent_node(i).follower = 0;
