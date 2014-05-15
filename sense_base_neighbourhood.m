@@ -12,7 +12,10 @@ base.connected = [];
 
 % Do not initialize the c_neighbours{3,:} and c_neighbours{4,:}. They are
 % being initialized in get_neighbours function
-   
+
+xpoly = [base.xc base.xc+base.size(1)-1 base.xc+base.size(1)-1 base.xc base.xc];
+ypoly = [base.yc base.yc base.yc+base.size(2)-1 base.yc+base.size(2)-1 base.yc];
+
 for j = 1:base.max_c_neighbour
     if (strcmp(base.c_neighbours{3,j},'NULL') == 0)
         base.c_neighbours{4,j} = 'EMPTY';
