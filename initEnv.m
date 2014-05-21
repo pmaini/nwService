@@ -84,9 +84,9 @@ sim_cont = 1;
 axis ([xmin xmax ymin ymax]);
 axis square;
 box on;
-grid on;
-set(gca,'XTick',xmin:1:xmax);%[]);%
-set(gca,'YTick',ymin:1:ymax);%[]);%
+% grid on;
+% set(gca,'XTick',xmin:1:xmax);%[]);%
+% set(gca,'YTick',ymin:1:ymax);%[]);%
 hold on;
 
 %from 0 to numCells-1 for easy calculation of j using mod
