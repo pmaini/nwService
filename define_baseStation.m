@@ -50,10 +50,10 @@ base.ypoly = [base.yc base.yc base.yc+base.size(2) base.yc+base.size(2) base.yc]
 base.xpoly = base.xpoly - 0.5;
 base.ypoly = base.ypoly - 0.5;
 
-for i=1:size(base.indices,2)
-    rectangle('Position',[gridpoints_x(base.indices(i))-0.5,gridpoints_y(base.indices(i))-0.5,1,1],'FaceColor','blue');
-end
-base.plot = rectangle('Position',[base.xc - 0.5,base.yc - 0.5,base.size(1),base.size(2)],'FaceColor','blue');
+% for i=1:size(base.indices,2)
+%     rectangle('Position',[gridpoints_x(base.indices(i))-0.5,gridpoints_y(base.indices(i))-0.5,1,1],'FaceColor','blue');
+% end
+base.plot = rectangle('Position',[base.xc - 0.5,base.yc - 0.5,base.size(1),base.size(2)]);%,'FaceColor','blue');
 text(base.xc - 0.5 , base.yc - 0.5 +(base.size(2)/2), 'BASE');
 
 %both fields used for obstacle avoidance
