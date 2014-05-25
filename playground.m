@@ -10,24 +10,28 @@ clear all;
 close all;
 
 global grid_type numRows numColumns xmin ymin env_graph numCells xmax ymax;
-global numAgent numTask numObstacle sim_cont comm_network aC_range bC_range;
+global numAgent numTask numObstacle sim_cont comm_network aC_range bC_range aT_range;
 global task_counter max_tasks current_tasks time Total_obstacle_space d_max;
-global size_x size_y size_g gridpoints_x gridpoints_y covered_fraction;
+global size_x size_y size_g gridpoints_x gridpoints_y covered_fraction aS_range;
 global gridlocation gridCells s_time index_for_UD losMat cNeighMat maxTargets;
 
 %0: square: coordinates at bottom left of the cell
 %1: hexagon: coordinates at the center of the cell
 grid_type = 0;% 1;%
-numRows = 8;
-numColumns = 8;
+numRows = 20;
+numColumns = 20;
 xmin = 0;
 ymin = 0;
 numAgent = 3;
 numTask = 4;
-numObstacle = 2;
+numObstacle = 40;
 aC_range = 2*sqrt(2);
 bC_range = 2*sqrt(2);
+aS_range = sqrt(2);
+aT_range = 1;
 maxTargets = 2;
+
+% genEnvs();
 
 %In every run the generated environment is saved as [aitjok.mat] file,
 %where i is numAgent, j is numTask, k is numObstacle. To load previous state
