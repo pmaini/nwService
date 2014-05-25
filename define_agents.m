@@ -3,7 +3,8 @@ function agent_node = define_agents(base, obstacle, graph, filename)
 %%base station. Give world graph with only base added(no obstacles detected)
 %%Plot with their agent numbers.
 
-global numAgent index_for_UD numTask gridpoints_x gridpoints_y aC_range maxTargets;
+global numAgent index_for_UD numTask gridpoints_x gridpoints_y aC_range;
+global maxTargets aS_range aT_range;
 
 agent_node = struct([]);
 
@@ -48,8 +49,8 @@ for i = 1:numAgent
     
     %typically c_range > s_range > t_range
     agent_node(i).c_range = aC_range;
-    agent_node(i).s_range = sqrt(2);
-    agent_node(i).t_range = 1;
+    agent_node(i).s_range = aS_range;
+    agent_node(i).t_range = aT_range;
     
     %maximum number of valid neighbouring locations possible(found here to allocate memory in next step)
     agent_node(i).max_c_neighbour = length(get_neighbours_in_range(agent_node(i).index,agent_node(i).c_range));
