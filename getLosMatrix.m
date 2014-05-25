@@ -1,16 +1,16 @@
-function [rval1 rval2] = getLosMatrix(base, obstacle, agents, filename)
+function [rval1 rval2] = getLosMatrix(base, obstacle, filename)
 
-global numCells gridpoints_x gridpoints_y;
+global numCells gridpoints_x gridpoints_y aC_range;
 
-if nargin == 4
+if nargin == 3
     load(filename);
     rval1 = losMat;
     rval2 = cNeighMat;
     return;
 end
 
-range = max([agents(:).c_range]);
-maxnNum = max([agents(:).max_c_neighbour]);
+range = aC_range;
+maxnNum = length(get_neighbours_in_range(base.c_neighbours{6,1},range));
 neighbourMatrix = zeros(numCells,maxnNum);
 losMatrix = zeros(numCells,maxnNum);
 
