@@ -58,14 +58,15 @@ for k = 1:numAgent
                 %add back edges removed for soft obstacles within s_range
                 if ismember(agents(k).s_neighbours{6,j},agents(k).soft_obs(:,1)')
                     sObIndex = find(agents(k).soft_obs(:,1)' == agents(k).s_neighbours{6,j});
-                    sObDir = agents(k).soft_obs(sObIndex,2);
+                    sObDir = agents(k).soft_obs(sObIndex,2);% from_cell info
                     for numSoB = 1:length(sObIndex)
                         obs.type = 'soft';
                         obs.dir = sObDir(numSoB); %1:from up,2:from right,3:from left,4:from bottom
                         obs.xc = agents(k).s_neighbours{1,j};
                         obs.yc = agents(k).s_neighbours{2,j};
                         obs.size = [1 1];
-                        obs.index = agents(k).s_neighbours{6,j};
+                        obs.indexto = agents(k).s_neighbours{6,j};
+                        obs.indexfrom = sObDir(numSoB);
                         agents(k).view = update_graph(agents(k).view,obs,0);
                     end
                     agents(k).soft_obs(sObIndex,:) = [];
@@ -91,19 +92,21 @@ for k = 1:numAgent
     end
 end
 
-obs = struct([]);
 
+obsH = struct([]);
+obs = struct([]);
 for k = 1:numAgent
     
     %%Adding all known obstacles(sensed and shared)
     for j = 1:length(agents(k).obstacles)
-        obs(j).type = 'hard';
-        obs(j).xc = gridpoints_x(agents(k).obstacles(j));
-        obs(j).yc = gridpoints_y(agents(k).obstacles(j));
-        obs(j).size = [1 1];
-        obs(j).index = find_index(obs(j).xc,obs(j).yc);
-        agents(k).view = update_graph(agents(k).view,obs(j),1);
+        obsH(j).type = 'hard';
+        obsH(j).xc = gridpoints_x(agents(k).obstacles(j));
+        obsH(j).yc = gridpoints_y(agents(k).obstacles(j));
+        obsH(j).size = [1 1];
+        obsH(j).index = find_index(obsH(j).xc,obsH(j).yc);
+        agents(k).view = update_graph(agents(k).view,obsH(j),1);
     end
+
     
     % Populating the t_neighbour cell array is not necessary hence not done.
     for j = 1:agents(k).max_t_neighbour
@@ -121,22 +124,24 @@ for k = 1:numAgent
         % already added to the graph.
 
         if ismember(agents(k).t_neighbours{6,j},[agents(setdiff(agents(k).agentsInRange,numAgent+1)).index])
-            agents(k).soft_obs = [agents(k).soft_obs;agents(k).t_neighbours{6,j} j];
+            agents(k).soft_obs = [agents(k).soft_obs;agents(k).t_neighbours{6,j} agents(k).index];
             obs(j).type = 'soft';
             obs(j).dir = j; %1:from up,2:from right,3:from left,4:from bottom
             obs(j).xc = agents(k).t_neighbours{1,j};
             obs(j).yc = agents(k).t_neighbours{2,j};
             obs(j).size = [1 1];
-            obs(j).index = agents(k).t_neighbours{6,j};
+            obs(j).indexto = agents(k).t_neighbours{6,j};
+            obs(j).indexfrom = agents(k).index;
             agents(k).view = update_graph(agents(k).view,obs(j),1);
         elseif ismember(agents(k).t_neighbours{6,j},agents(k).agentsNextLocs)
-            agents(k).soft_obs = [agents(k).soft_obs;agents(k).t_neighbours{6,j} j];
+            agents(k).soft_obs = [agents(k).soft_obs;agents(k).t_neighbours{6,j} agents(k).index];
             obs(j).type = 'collAvoid';
             obs(j).dir = j; %1:from up,2:from right,3:from left,4:from bottom
             obs(j).xc = agents(k).t_neighbours{1,j};
             obs(j).yc = agents(k).t_neighbours{2,j};
             obs(j).size = [1 1];
-            obs(j).index = agents(k).t_neighbours{6,j};
+            obs(j).indexto = agents(k).t_neighbours{6,j};
+            obs(j).indexfrom = agents(k).index;
             agents(k).view = update_graph(agents(k).view,obs(j),0);
         elseif ~ismember(agents(k).t_neighbours{6,j},[base.indices obstacle(:).index])
             obs(j).type = 'soft';
@@ -144,7 +149,8 @@ for k = 1:numAgent
             obs(j).xc = agents(k).t_neighbours{1,j};
             obs(j).yc = agents(k).t_neighbours{2,j};
             obs(j).size = [1 1];
-            obs(j).index = agents(k).t_neighbours{6,j};
+            obs(j).indexto = agents(k).t_neighbours{6,j};
+            obs(j).indexfrom = agents(k).index;
             agents(k).view = update_graph(agents(k).view,obs(j),0);
         end
     end
