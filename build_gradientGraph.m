@@ -12,13 +12,13 @@ for i = 1:numCells
    for j = 1:length(t_indices)
        k = t_indices(j);
        if env_graph(i,k) == 1 || env_graph(k,i) == 1
-           if gridCells(k).bNeighL == gridCells(i).bNeighL
+%            if gridCells(k).bNeighL == gridCells(i).bNeighL
                env_graph(i,k) = gridCells(k).bNeighL;      
-           elseif gridCells(k).bNeighL == gridCells(i).bNeighL+1
-               env_graph(i,k) = gridCells(k).bNeighL;
-           elseif gridCells(k).bNeighL == gridCells(i).bNeighL-1
-               env_graph(i,k) = gridCells(k).bNeighL;
-           end
+%            elseif gridCells(k).bNeighL == gridCells(i).bNeighL+1
+%                env_graph(i,k) = gridCells(k).bNeighL;
+%            elseif gridCells(k).bNeighL == gridCells(i).bNeighL-1
+%                env_graph(i,k) = gridCells(k).bNeighL;
+%            end
        end   
    end
 end
