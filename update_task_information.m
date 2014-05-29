@@ -23,7 +23,7 @@ for i = 1:numTask
    end
    if task_node(i).serviced == 0 && task_node(i).active == 0
        if flag == 1
-           feasible = check_feasible(agents,tasks(task_counter+1),base,obstacle);
+           feasible = check_feasible(agents,task_node(i),base,obstacle);
            if (feasible==1)
                task_node(i).active = 1;
                flag = 0;
