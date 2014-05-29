@@ -46,7 +46,7 @@ for k = 1:numAgent
         end
         
         agentIndex = agents(i).index;
-        neighIndex = find([NeighMat(agents(k).index,:)]==agentIndex);
+        neighIndex = find([NeighMat(agents(k).index,:,1)]==agentIndex);
         connectivity = 0;
         if neighIndex ~= 0
             connectivity = losMat(agents(k).index,neighIndex);
