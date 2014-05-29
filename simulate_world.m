@@ -27,12 +27,14 @@ while (sim_cont == 1)
         for i = 1:numAgent
             [base, agent_node] = next_move(i, base, agent_node,obstacle);
         end
-        [agent_node task_node] = refresh_plot(agent_node, task_node);
-    end  
+
+    end
+    
+    [agent_node task_node] = refresh_plot(agent_node, task_node);
     
     pause(0.1);
     
-    if time == 24
+    if time == 19
         pause(1);
     end
     
