@@ -5,7 +5,7 @@ function agents = sense_agent_neighbourhood(base, obstacle, agents)
 %%1. NULL check for both validity and occupancy(REDUNDANT)
 %%2. Check for base. 3. Check for obstacles. 4. Check for other agents.
 %%5. Check for Tasks.
-global numAgent gridpoints_x gridpoints_y;
+global numAgent gridpoints_x gridpoints_y NeighMat losMat;
 
 
 for k = 1:numAgent
@@ -21,6 +21,10 @@ for k = 1:numAgent
             continue;
         end
         
+        neighIndex = NeighMat(agents(k).index,:,2)==agents(k).s_neighbours{6,j};
+        if losMat(agents(k).index,neighIndex,2) == 0
+            continue;
+        end
         % check if the coordinates of this neighbour cell are inside the
         % base(overlapping): 0 code for base in a neighbour position
         if  ismember(agents(k).s_neighbours{6,j},base.indices)
@@ -111,6 +115,14 @@ for k = 1:numAgent
     % Populating the t_neighbour cell array is not necessary hence not done.
     for j = 1:agents(k).max_t_neighbour
         
+        %to remove invalid cells
+        if agents(k).t_neighbours{6,j}==0
+            continue;
+        end
+        
+        %support LOS check, used in last else below
+        neighIndex = NeighMat(agents(k).index,:,3)==agents(k).t_neighbours{6,j};
+        
          if ismember(agents(k).t_neighbours{6,j},[base.indices agents(k).obstacles])
             agents(k).t_neighbours{3,j} = 'NULL';
             agents(k).t_neighbours{4,j} = 'NULL';
@@ -143,7 +155,7 @@ for k = 1:numAgent
             obs(j).indexto = agents(k).t_neighbours{6,j};
             obs(j).indexfrom = agents(k).index;
             agents(k).view = update_graph(agents(k).view,obs(j),0);
-        elseif ~ismember(agents(k).t_neighbours{6,j},[base.indices obstacle(:).index])
+        elseif ~ismember(agents(k).t_neighbours{6,j},[base.indices obstacle(:).index]) && losMat(agents(k).index,neighIndex,3)
             obs(j).type = 'soft';
             obs(j).dir = j; %1:from up,2:from right,3:from left,4:from bottom
             obs(j).xc = agents(k).t_neighbours{1,j};
