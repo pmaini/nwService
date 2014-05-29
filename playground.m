@@ -13,22 +13,23 @@ global grid_type numRows numColumns xmin ymin env_graph numCells xmax ymax;
 global numAgent numTask numObstacle sim_cont comm_network aC_range bC_range aT_range;
 global task_counter max_tasks current_tasks time Total_obstacle_space d_max;
 global size_x size_y size_g gridpoints_x gridpoints_y covered_fraction aS_range;
-global gridlocation gridCells s_time index_for_UD losMat cNeighMat maxTargets;
+global gridlocation gridCells s_time index_for_UD losMat NeighMat maxTargets;
 
 %0: square: coordinates at bottom left of the cell
 %1: hexagon: coordinates at the center of the cell
 grid_type = 0;% 1;%
-numRows = 20;
-numColumns = 20;
+numRows = 12;
+numColumns = 12;
 xmin = 0;
 ymin = 0;
-numAgent = 3;
+numAgent = 4;
 numTask = 4;
-numObstacle = 40;
-aC_range = 2*sqrt(2);
-bC_range = 2*sqrt(2);
-aS_range = sqrt(2);
-aT_range = 1;
+numObstacle = 6;
+%Assumption: aC_range == bC_range
+aC_range = 3*sqrt(2);
+bC_range = 3*sqrt(2);
+aS_range = 2*sqrt(2);
+aT_range = sqrt(2);
 maxTargets = 2;
 
 % genEnvs();
@@ -36,7 +37,7 @@ maxTargets = 2;
 %In every run the generated environment is saved as [aitjok.mat] file,
 %where i is numAgent, j is numTask, k is numObstacle. To load previous state
 %give the filename as input to create_world. eg: 'a3t4o2'
-[base, obstacle, agent_node, task_node] = create_world();%(filename);%
+[base, obstacle, agent_node, task_node] = create_world('x12y12a4t4o6');%(filename);%
 
 [base, agent_node, task_node] = setup_world(base, obstacle, agent_node, task_node);
 
