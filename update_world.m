@@ -15,5 +15,5 @@ end
 base = sense_base_neighbourhood(base, obstacle, agents);
 agents = sense_agent_neighbourhood(base, obstacle, agents);
 [agents base] = update_network(agents, base, obstacle);
-[agents task_node] = update_task_information(agents, base, task_node);
+[agents task_node] = update_task_information(agents, base, task_node, obstacle);
 [agents task_node] = exchangeInfo(agents, base, task_node);
