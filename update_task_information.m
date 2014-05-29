@@ -1,6 +1,6 @@
-function [agents task_node] = update_task_information(agents, base, task_node)
+function [agents task_node] = update_task_information(agents, base, task_node, obstacle)
 
-global numAgent numTask
+global numAgent numTask current_tasks task_counter max_tasks
 
 for i = 1:numAgent
     if agents(i).is_connected == 100
@@ -23,8 +23,14 @@ for i = 1:numTask
    end
    if task_node(i).serviced == 0 && task_node(i).active == 0
        if flag == 1
-           task_node(i).active = 1;
-           flag = 0;
+           feasible = check_feasible(agents,tasks(task_counter+1),base,obstacle);
+           if (feasible==1)
+               task_node(i).active = 1;
+               flag = 0;
+               task_counter = task_counter + 1;
+               current_tasks = current_tasks + 1;
+               max_tasks = max(max_tasks,current_tasks);
+           end
        end
    end
 end
