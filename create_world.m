@@ -8,7 +8,7 @@ global grid_type numRows numColumns xmin ymin env_graph numCells xmax ymax;
 global numAgent numTask numObstacle sim_cont comm_network aC_range bC_range aT_range;
 global task_counter max_tasks current_tasks time Total_obstacle_space d_max;
 global size_x size_y size_g gridpoints_x gridpoints_y covered_fraction aS_range;
-global gridlocation gridCells s_time index_for_UD losMat cNeighMat maxTargets;
+global gridlocation gridCells s_time index_for_UD losMat NeighMat maxTargets;
 
 %0:custom, 1:random
 if nargin == 1
@@ -24,7 +24,7 @@ if nargin == 1
     obstacle = generate_obstacle(base,filename);
     
     % Los Data
-    [losMat cNeighMat] = getLosMatrix(base,obstacle,filename);
+    [losMat NeighMat] = getLosMatrix(base,obstacle,filename);
 
     % Define agents
     agent_node = define_agents(base, obstacle, graph, filename);%, obstacle);
@@ -50,7 +50,7 @@ elseif nargin == 0
     % Add Obstacles
     obstacle = generate_obstacle(base);
         
-    [losMat cNeighMat] = getLosMatrix(base,obstacle);
+    [losMat NeighMat] = getLosMatrix(base,obstacle);
     
     % Define agents
     agent_node = define_agents(base, obstacle, graph);%, obstacle);
@@ -58,6 +58,7 @@ elseif nargin == 0
     % Task Node definition
     task_node = define_tasks(base, obstacle);
     
-    save(['a' num2str(numAgent) 't' num2str(numTask) 'o' num2str(numObstacle)]);
+    save(['x' num2str(numRows) 'y' num2str(numColumns) 'a' num2str(numAgent)...
+        't' num2str(numTask) 'o' num2str(numObstacle)] );
     
 end
