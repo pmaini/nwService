@@ -3,7 +3,7 @@ function [agents base] = update_network(agents,base,obstacle)
 %of the communication network formed. Update the agentsInRange and
 %is_connected flag. The is_connected flag gives the number of hops to the
 %base station.
-global numAgent comm_network losMat cNeighMat;
+global numAgent comm_network losMat NeighMat;
 
 a = [];
 b = [];
@@ -46,7 +46,7 @@ for k = 1:numAgent
         end
         
         agentIndex = agents(i).index;
-        neighIndex = find([cNeighMat(agents(k).index,:)]==agentIndex);
+        neighIndex = find([NeighMat(agents(k).index,:)]==agentIndex);
         connectivity = 0;
         if neighIndex ~= 0
             connectivity = losMat(agents(k).index,neighIndex);
@@ -64,13 +64,9 @@ for k = 1:numAgent
     end
 end
 
-
-
-   
-   
-
 %make graph: adjacency matrix
 for k = 1:numAgent
+    agents(k).agentsInRange = sort(agents(k).agentsInRange);
     numConn = numel(agents(k).agentsInRange);
     connections = k*ones(1,numConn);
     a = [a connections];
