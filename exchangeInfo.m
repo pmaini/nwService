@@ -127,6 +127,6 @@ for i = 1:numAgent
     
     if ismember(numAgent+1,agents(i).agentsInRange)
         agents(i).task_status = max(agents(i).task_status,baseinfo(i).task_status);
-        agents(i).agentIndices = max(agents(i).agentIndices,baseinfo(i).agentIndex);
+        agents(i).bagentIndices = baseinfo(i).agentIndex;
     end
 end
