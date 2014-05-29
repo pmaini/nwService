@@ -108,7 +108,13 @@ for i = 1:numAgent
         relay_s = relayCandIndex(relayIndex);
         relay = information(i).node(relay_s);
         relay_cost = task_vector(relay_s);
-        [cost_to_relay,~,~] = graphshortestpath(agents(i).view, agents(i).index,agents(relay).index);
+        [distance,path,~] = graphshortestpath(agents(i).view, agents(i).index,agents(relay).index);
+        if length(path) > 0
+            cost_to_relay = length(path);%distance
+        else
+            cost_to_relay = Inf;%distance
+        end
+        
         num_cand = length(relayCandIndex);        
         
         if ~isempty(leader)
