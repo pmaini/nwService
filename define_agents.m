@@ -103,7 +103,7 @@ for i = 1:numAgent
     
     %Number of hops initialized with relative infinity
     agent_node(i).is_connected = 100;
-    agent_node(i).bconnectpath = [i numAgent+1];
+    agent_node(i).bconnectPath = [i numAgent+1];
     agent_node(i).links = cell(1,numAgent);
     
     %involvement with a task service(as SA or as RA)
