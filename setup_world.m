@@ -24,8 +24,7 @@ while i <= 2
         current_tasks = current_tasks + 1;
         max_tasks = max(max_tasks,current_tasks);
         i = i+1;
-    end
-    
+    end    
 end
 %% Update World
 
