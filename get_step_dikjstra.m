@@ -5,18 +5,17 @@ function [x_next, y_next, got_move] = get_step_dikjstra(agents, agent)
 %location. Find floor of x and y coordinates and find corresponding index.
 %Return this value which is the next step given the current targets
 
-global gridpoints_x gridpoints_y numAgent;
+global gridpoints_x gridpoints_y ;
 
 c_index = agents(agent).index;
-xt = agents(agent).xc;
-yt = agents(agent).yc;
+% xt = agents(agent).xc;
+% yt = agents(agent).yc;
 
 x_total = 0;
 y_total = 0;
 n_factor = 0;
 
-% +1 for bConnect
-for i = 1:agents(agent).max_targets%+1
+for i = 1:agents(agent).max_targets
     
     if agents(agent).targets(i).valid == 0
         continue;
@@ -29,7 +28,7 @@ for i = 1:agents(agent).max_targets%+1
     %When in relay mode, if the leader is close by, ideal region(s_range)
     %then no need to move
     if strcmp(agents(agent).targets(i).type,'relay') == 1
-        if ismember(agents(agent).targets(i).index,[agents(agent).s_neighbours{6,:}])
+        if ismember(agents(agent).targets(i).index,[agents(agent).t_neighbours{6,:}])
             path = c_index;
             distance = 0;
         end     
@@ -44,12 +43,12 @@ for i = 1:agents(agent).max_targets%+1
         x_total = x_total + agents(agent).targets(i).weight*gridpoints_x(c_index);
         y_total = y_total + agents(agent).targets(i).weight*gridpoints_y(c_index);
     end
-    
 end
 
 %normalizing factor
 n_factor = agents(agent).n_factor;
 
+% using old targets
 for i = 1:agents(agent).max_targets
     
     if agents(agent).old_targets(i).valid == 0
@@ -83,12 +82,22 @@ for i = 1:agents(agent).max_targets
         x_total = x_total + agents(agent).old_targets(i).weight*gridpoints_x(c_index);
         y_total = y_total + agents(agent).old_targets(i).weight*gridpoints_y(c_index);
     end
-    
 end
 
 x_next = floor(x_total/n_factor) + 0.5;
 y_next = floor(y_total/n_factor) + 0.5;
 % n_index = find_index(x_next,y_next);
+
+%code possibly useful for discrete next move selection
+% if isequal(path_index(1)*ones(1,length(path_index)),path_index)
+%     n_index = path_index(1);
+% else
+%     [~, i] = min([agents(agent).targets(:).task]);
+%     n_index = path_index(i);    
+% end
+% 
+% x_next = gridpoints_x(n_index);
+% y_next = gridpoints_y(n_index);
 
 if (x_total == 0) && (y_total == 0)
     got_move = 0;     
