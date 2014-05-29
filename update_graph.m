@@ -105,6 +105,6 @@ switch flag
                 
                 %The cost should be more than that fro alternate paths on
                 %both sides
-                s_graph(node.indexfrom,node.indexto) = (max(gridCells(node.indexfrom).bNeighL,gridCells(node.indexto).bNeighL)*4)+4;%d_max*4+4;%
+                s_graph(node.indexfrom,node.indexto) = s_graph(node.indexfrom,node.indexto)+(max(gridCells(node.indexfrom).bNeighL,gridCells(node.indexto).bNeighL)*4)+4;%d_max*4+4;%
         end
 end
