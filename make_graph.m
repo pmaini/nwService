@@ -11,9 +11,7 @@ j = [];
 
 for n=1:numCells    
     if grid_type == 0
-        tempIndices = [2,4,6,8];
-        neighbours = gridCells(n).validneighbours(tempIndices);
-        gridCells(n).t_neighbours = neighbours;
+        neighbours = gridCells(n).t_neighbours;
     else
         neighbours = gridCells(n).validneighbours;        
     end
