@@ -10,7 +10,7 @@ get location neighbours
 main use is of gridpoint vectors, gridlocation and base_connected
 %}
 
-global xmin ymin xmax ymax;
+global xmin ymin xmax ymax aS_range aT_range aC_range;
 
 if nargin == 1
     
@@ -84,9 +84,9 @@ sim_cont = 1;
 axis ([xmin xmax ymin ymax]);
 axis square;
 box on;
-% grid on;
-% set(gca,'XTick',xmin:1:xmax);%[]);%
-% set(gca,'YTick',ymin:1:ymax);%[]);%
+grid on;
+set(gca,'XTick',xmin:1:xmax);%[]);%
+set(gca,'YTick',ymin:1:ymax);%[]);%
 hold on;
 
 %from 0 to numCells-1 for easy calculation of j using mod
@@ -105,6 +105,8 @@ for k = 0:(numCells-1)
     gridpoints_x(k+1) = xc;
     gridpoints_y(k+1) = yc;
     gridlocation(k+1) = get_location(k+1);
-    gridCells(k+1).validneighbours = find_valid_neighbour_indices(k+1);
+    gridCells(k+1).t_neighbours = get_neighbours_in_range(k+1,aT_range);
+    gridCells(k+1).s_neighbours = get_neighbours_in_range(k+1,aS_range);
+    gridCells(k+1).c_neighbours = get_neighbours_in_range(k+1,aC_range);
 end
 
