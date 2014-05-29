@@ -7,7 +7,8 @@ global numAgent gridpoints_x gridpoints_y gridCells numTask;
 for i = 1:numAgent
     
    agents(i).old_targets = agents(i).targets;
-   [agents(i).targets.valid] = deal(0);
+   [agents(i).targets(:).valid] = deal(0);
+   [agents(i).targets(:).weight] = deal(0);
    agents(i).n_factor = 0;
    
    if agents(i).is_connected == 100

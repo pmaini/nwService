@@ -93,7 +93,7 @@ n_factor = agents(agent).n_factor;
 if isequal(path_index(1)*ones(1,length(path_index)),path_index)
     n_index = path_index(1);
 else
-    [~, i] = max([agents(agent).targets(:).weight]);
+    [~, i] = max([agents(agent).targets(1:agents(agent).max_targets).weight]);
     n_index = path_index(i);    
 end
 
