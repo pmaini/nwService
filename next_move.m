@@ -8,7 +8,7 @@ function [base, agents] = next_move(agent,base,agents,obstacle)
 
 %% Initializations
 
-global comm_network cNeighMat losMat numAgent;
+global comm_network NeighMat losMat numAgent aC_range aT_range;
 
 agents(agent).utility_vector = zeros(1,numAgent);
 % %direction of movement
@@ -49,7 +49,8 @@ if (agents(agent).will_move == 1)
         
         %if connected then new location checked for connectivity o/w skip
         %the check. State should not deteriorate. atleast as good as
-        %current
+        %current. This is important otherwise agent won't move when
+        %disconnected.
         if agents(agent).is_connected == 100
             connectivity = 1;
         else
@@ -64,17 +65,51 @@ if (agents(agent).will_move == 1)
             %     non zero check not needed now initialized with value 100 hops
             connAgents = find(agents(agent).agentConn);
             connAgents = connAgents((agents(agent).agentConn(connAgents) ~= 100));
-            connAgents = connAgents((agents(agent).agentConn(connAgents) < agents(agent).is_connected+1));            
+            connAgents = connAgents((agents(agent).agentConn(connAgents) <= agents(agent).is_connected));
+
+            temp  = connAgents;
+
+            for j = 1:length(connAgents)
+                if length(agents(agent).links{1,connAgents(j)}) == 2
+                    continue;
+                end
+                
+                if (agents(agent).agentConn(connAgents(j)) >= agents(agent).is_connected)
+                    temp(j) = 0;
+                elseif (agents(agent).links{1,connAgents(j)}(2) == agents(agent).bconnectPath(2))
+                    temp(j) = 0;
+                end
+            end
+            temp(temp ==0) =[];
+
+            connAgents = temp;
+            %         connAgentsEqual =  connAgents((agents(agent).agentConn(connAgents) == agents(agent).is_connected+1));
+            %         for ind = 1:length(connAgentsEqual)
+            %            if ~ismember(agents(connAgentsEqual(ind)).bconnectPath)
+            %                connAgents = [connAgents connAgentsEqual(ind)];
+            %            end
+            %         end
             
             cAgentsIndex = agents(agent).agentIndices(connAgents);
             %         connection = zeros(1,length(cAgentsIndex));
             
+            %supplemeting agent location information from that recieved
+            %from base. Decide based on final decision.
+            bCagents = agents(agent).bagentIndices;
+            bCagents(bCagents == 0) = [];
+            cAgentsIndex = [cAgentsIndex bCagents];
             for i = 1:length(cAgentsIndex)
                 
                 %             agentName = connAgents(i);
                 agentIndex = cAgentsIndex(i);
-                neighIndex = find(cNeighMat(n_index,:)==agentIndex);
                 
+%                 %this is the paper idea of considering worst move
+%                 if ~ismember(agentIndex,get_neighbours_in_range(n_index,aC_range-aT_range))
+%                     continue;
+%                 end
+                
+                neighIndex = find(NeighMat(n_index,:)==agentIndex);
+                                
                 if neighIndex ~= 0
                     connectivity = losMat(n_index,neighIndex);
                 end
