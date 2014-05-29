@@ -3,7 +3,7 @@ function node = get_neighbours(node)
 %%set boundary flags. Also populate neighbour cell arrays for different
 %%ranges. It does not perform any kind of sensing or perception operation.
 
-global gridpoints_x gridpoints_y;
+global gridpoints_x gridpoints_y gridCells;
 
 node = set_boundary_flags(node);
 
@@ -16,7 +16,19 @@ else %(strcmp(node.name,'agent') == 1)
 end
 
 for j = 1:length(range)
-    neighbours = get_neighbours_in_range(index,range(j));
+    if (strcmp(node.name,'base') == 1)
+        neighbours = get_neighbours_in_range(index,range(j));
+    else
+        switch(j)
+            case 1
+                neighbours = gridCells(index).c_neighbours;
+            case 2
+                neighbours = gridCells(index).s_neighbours;
+            case 3
+                neighbours = gridCells(index).t_neighbours;
+        end
+    end
+    
     neighbour = cell(6,length(neighbours));
     for i = 1:length(neighbours)
         if neighbours(i) ~= 0
