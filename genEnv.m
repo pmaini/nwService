@@ -10,8 +10,11 @@ global gridlocation gridCells s_time index_for_UD losMat cNeighMat maxTargets;
 
     env_graph = make_graph();
     % view(biograph(env_graph,[],'ShowWeights','on','ShowArrows','off'));
-
+    
     % Define base station
     base = define_baseStation();
-
-    save('20Env');
+    
+    graph = env_graph;
+    
+    save([num2str(numRows) 'Env']);
+    save([num2str(numRows) 'EnvGraph'],'graph');

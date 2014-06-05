@@ -53,7 +53,7 @@ elseif nargin == 0
     [losMat NeighMat] = getLosMatrix(base,obstacle);
     
     % Define agents
-    agent_node = define_agents(base, obstacle, graph);%, obstacle);
+    agent_node = define_agents(base, obstacle, graph);
 
     % Task Node definition
     task_node = define_tasks(base, obstacle);
