@@ -32,7 +32,8 @@ aS_range = 2*sqrt(2);
 aT_range = sqrt(2);
 maxTargets = 2;
 
-% genEnvs();
+genEnv();
+genEnvs();
 
 %In every run the generated environment is saved as [aitjok.mat] file,
 %where i is numAgent, j is numTask, k is numObstacle. To load previous state
