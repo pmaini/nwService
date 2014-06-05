@@ -32,16 +32,10 @@ global grid_type;
 global numCells numRows numColumns;
 numCells = numRows * numColumns;
 
-
 if grid_type == 0
     xmax = xmin + numColumns;
     ymax = ymin + numRows;
 end
-
-% global size_x size_y size_g; % used in graph representation and operations
-% size_x = xmax - xmin;
-% size_y = ymax - ymin;
-% size_g = size_x * size_y;
 
 %cells are numbered 1:numCells, and indexed into the following row vectors
 %to access the corresponding value. x-coordinates y-coordinates and
@@ -80,14 +74,14 @@ global time sim_cont;
 time = 1;
 sim_cont = 1;
 
-% global env_graph;
-axis ([xmin xmax ymin ymax]);
-axis square;
-box on;
-grid on;
-set(gca,'XTick',xmin:1:xmax);%[]);%
-set(gca,'YTick',ymin:1:ymax);%[]);%
-hold on;
+% % global env_graph;
+% axis ([xmin xmax ymin ymax]);
+% axis square;
+% box on;
+% grid on;
+% set(gca,'XTick',xmin:1:xmax);%[]);%
+% set(gca,'YTick',ymin:1:ymax);%[]);%
+% hold on;
 
 %from 0 to numCells-1 for easy calculation of j using mod
 for k = 0:(numCells-1)

@@ -4,7 +4,7 @@ global numCells gridCells env_graph;
 
 bNeighbourhood_level(base);
 
-plotPotGradient(base);
+% plotPotGradient(base);
 
 for i = 1:numCells
    t_indices = gridCells(i).t_neighbours;

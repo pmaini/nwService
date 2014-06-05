@@ -45,12 +45,12 @@ for j = 1:numTask
     task_node(j).service_time = 0;
     task_node(j).processed = 0;%whether already used for new task generation
     
-    if mod(j,2) == 0
-        task_node(j).plot(1) = plot(task_node(j).xc,task_node(j).yc,'hr','MarkerSize',16,'MarkerFaceColor','magenta');
-    else
-        task_node(j).plot(1) = plot(task_node(j).xc,task_node(j).yc,'hr','MarkerSize',16,'MarkerFaceColor','blue');
-    end
-    
-    task_node(j).plot(2) = text(task_node(j).xc - 0.4,task_node(j).yc,num2str(j));
-    set(task_node(j).plot(2),'FontSize',8,'FontName','FixedWidth');
+%     if mod(j,2) == 0
+%         task_node(j).plot(1) = plot(task_node(j).xc,task_node(j).yc,'hr','MarkerSize',16,'MarkerFaceColor','magenta');
+%     else
+%         task_node(j).plot(1) = plot(task_node(j).xc,task_node(j).yc,'hr','MarkerSize',16,'MarkerFaceColor','blue');
+%     end
+%     
+%     task_node(j).plot(2) = text(task_node(j).xc - 0.4,task_node(j).yc,num2str(j));
+%     set(task_node(j).plot(2),'FontSize',8,'FontName','FixedWidth');
 end

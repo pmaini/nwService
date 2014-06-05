@@ -62,7 +62,7 @@ for i=1:numObstacle
     obstacle(i).type = 'hard';
     obstacle(i).space = ((obstacle(1).size(1))*(obstacle(1).size(2)));
     
-    obstacle(i).plot = rectangle('Position',[obstacle(i).xc,obstacle(i).yc,obstacle(i).size(1),obstacle(i).size(2)],'FaceColor','black','EdgeColor','none');
+%     obstacle(i).plot = rectangle('Position',[obstacle(i).xc,obstacle(i).yc,obstacle(i).size(1),obstacle(i).size(2)],'FaceColor','black','EdgeColor','none');
     
     env_graph = update_graph(env_graph, obstacle(i), 1);
     
