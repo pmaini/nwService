@@ -14,8 +14,6 @@ maxnNum = length(get_neighbours_in_range(base.indices(1),max(range)));
 neighbourMatrix = zeros(numCells,maxnNum,3);
 losMatrix = zeros(numCells,maxnNum,3);
 
-
-
 for i = 1:numCells
     neigh = gridCells(i).c_neighbours;% get_neighbours_in_range(i,range);
     neigh(ismember(neigh,base.indices)) = 0;

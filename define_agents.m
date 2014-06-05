@@ -4,7 +4,7 @@ function agent_node = define_agents(base, obstacle, graph, filename)
 %%Plot with their agent numbers.
 
 global numAgent index_for_UD numTask gridpoints_x gridpoints_y aC_range;
-global maxTargets aS_range aT_range;
+global maxTargets aS_range aT_range Total_obstacle_space;
 
 agent_node = struct([]);
 
@@ -155,3 +155,4 @@ for i = 1:numAgent
     set(agent_node(i).plot(2),'FontSize',8,'FontName','FixedWidth');
 end
 index_for_UD = 0;
+Total_obstacle_space = Total_obstacle_space + numAgent;

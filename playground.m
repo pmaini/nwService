@@ -18,13 +18,13 @@ global gridlocation gridCells s_time index_for_UD losMat NeighMat maxTargets;
 %0: square: coordinates at bottom left of the cell
 %1: hexagon: coordinates at the center of the cell
 grid_type = 0;% 1;%
-numRows = 12;
-numColumns = 12;
+numRows = 20;
+numColumns = 20;
 xmin = 0;
 ymin = 0;
-numAgent = 4;
-numTask = 4;
-numObstacle = 6;
+numAgent = 10;
+numTask = 10;
+numObstacle = 36;
 %Assumption: aC_range == bC_range
 aC_range = 3*sqrt(2);
 bC_range = 3*sqrt(2);
@@ -32,13 +32,13 @@ aS_range = 2*sqrt(2);
 aT_range = sqrt(2);
 maxTargets = 2;
 
-genEnv();
-genEnvs();
+% genEnv();
+% genEnvs();
 
 %In every run the generated environment is saved as [aitjok.mat] file,
 %where i is numAgent, j is numTask, k is numObstacle. To load previous state
 %give the filename as input to create_world. eg: 'a3t4o2'
-[base, obstacle, agent_node, task_node] = create_world('x12y12a4t4o6');%(filename);%
+[base, obstacle, agent_node, task_node] = create_world();%(filename);%
 
 [base, agent_node, task_node] = setup_world(base, obstacle, agent_node, task_node);
 
