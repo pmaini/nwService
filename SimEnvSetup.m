@@ -9,10 +9,10 @@ global grid_type numRows numColumns xmin ymin numObstacle;
 
 %0: square: coordinates at bottom left of the cell
 grid_type = 0;
-numRows = 8;
-numColumns = 8;
+numRows = 20;
+numColumns = 20;
 xmin = 0;
 ymin = 0;
 genEnv();
-numObstacle = 6;
+numObstacle = 36;
 genEnvs();

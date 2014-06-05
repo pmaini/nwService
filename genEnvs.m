@@ -8,8 +8,8 @@ global size_x size_y size_g aS_range d_max env_graph maxTargets;
 global aT_range base_connected gridCells s_time losMat NeighMat;
 
 for i= 1:20
-    load('8Environ');
-    numObstacle = 6;
+    load('20Environ');
+    numObstacle = 36;
     
     filename = [ num2str(i) 'Sno' num2str(numRows) 'x' ...
     num2str(numColumns) 'O' num2str(numObstacle)];
