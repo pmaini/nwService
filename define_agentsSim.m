@@ -9,7 +9,7 @@ global maxTargets aS_range aT_range Total_obstacle_space;
 agent_node = struct([]);
 
 if nargin == 4
-%     load(filename);
+    load(filename,'agent_node');
     for i = 1:numAgent        
         %0: unprocessed, 1: active, being processed, 2: serviced, processed
         agent_node(i).task_status = zeros(1,numTask);
