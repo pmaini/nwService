@@ -129,7 +129,9 @@ if (agents(agent).will_move == 1)
     agents(agent).xc = x_next;
     agents(agent).yc = y_next;
     agents(agent).index = find_index(x_next,y_next);
-    agents(agent).moved = 1;    
+    agents(agent).moved = 1;
+    agents(agent).pathTrack = [agents(agent).pathTrack agents(agent).index];
 else
     agents(agent).moved = 0;
+    agents(agent).pathTrack = [agents(agent).pathTrack agents(agent).index];
 end
