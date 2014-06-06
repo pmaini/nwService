@@ -19,10 +19,10 @@ if nargin == 1
     env_graph = make_graph();
     % view(biograph(env_graph,[],'ShowWeights','on','ShowArrows','off'));
     
-    graph = env_graph;
-
     % Define base station
     base = define_baseStationSim(filename);
+    
+    graph = env_graph;
 
     % Add Obstacles
     obstacle = generate_obstacleSim(base,filename);
