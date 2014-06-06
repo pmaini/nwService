@@ -7,9 +7,14 @@ global  task_counter max_tasks current_tasks time;% Total_obstacle_space
 %global size_x size_y size_g gridpoints_x gridpoints_y covered_fraction
 %global gridlocation gridCells s_time index_for_UD;
 
-% Task Service
 
-while (sim_cont == 1)
+for i = 1:numAgent
+    agent_node(i).pathTrack = agent_node(i).index;
+end 
+    
+% Task Service
+maxm_Time = numTask*100;
+while (sim_cont == 1)&&(time <= maxm_Time)
     
     time = time+1;
     
@@ -30,13 +35,13 @@ while (sim_cont == 1)
 
     end
     
-    [agent_node task_node] = refresh_plot(agent_node, task_node);
+%     [agent_node task_node] = refresh_plot(agent_node, task_node);
     
-    pause(0.1);
-    
-    if time == 19
-        pause(1);
-    end
+%     pause(0.1);
+%     
+%     if time == 19
+%         pause(1);
+%     end
     
     [task_node agent_node] = update_task_status(task_node,agent_node,base);
     

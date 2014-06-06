@@ -13,10 +13,14 @@ for i =1:10
         clearvars -except i j;
     end    
 end
+
+% close all;
+% clear all;
+
 for i =1:10
     for j=8:4:24
         for k=2:2:10
-            filename = ([ num2str(i) 'Sno20x20O36']);
+            filename = (['dataEnv\' num2str(i) 'Sno20x20O36']);
             filename1 = ([filename 'c3s2t1' ]);
             filename2 = ([filename1 'a' num2str(j) ]);
 

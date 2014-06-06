@@ -32,4 +32,4 @@ end
 
 %% Make the plots:
 
-[agent_node task_node] = refresh_plot(agent_node, task_node);
+% [agent_node task_node] = refresh_plot(agent_node, task_node);
